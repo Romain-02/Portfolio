@@ -60,14 +60,9 @@ function translatePage(event) {
       }
     });
 
-    //translate the problematic text
-    let element = document.getElementById("portfolio-title");
-    let originalText = element.textContent.trim();
-    element.textContent = translations[originalText];
-    element = document.getElementById("phone");
-    originalText = element.textContent.trim();
-    console.log(originalText);
-    element.textContent = translations[originalText];
+    //translate the problematic elements
+    let div = document.getElementById('portfolio-title');
+    div.innerHTML = div.innerHTML.replace(div.innerText, translations[div.innerText]);
   }
   
 // Appliquer la traduction lorsque la page est chargée
