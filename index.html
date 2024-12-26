@@ -6,17 +6,19 @@
     <title>Portfolio</title>
     <link rel="stylesheet"href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="index.css">
+    <script src="translations.js"></script>
     <script src="index.js"></script>
 </head>
 <body>
     <div class="sidebar d-flex flex-column align-items-start p-3">
-        <h4 class="text-center w-100 mt-3 mb-4">Mon Portfolio</h4>
+        <h4 id="portfolio-title" class="text-center w-100 mt-3 mb-4">Mon Portfolio<img class="language-icon" src="/images/france.png" onClick="translatePage(event)"></h4>
         <div class="sidebar-links d-flex flex-column flex-wrap w-100">
             <a class="w-100" href="#home">Accueil</a>
             <a class="w-100" href="#formation">Formation</a>
             <a class="w-100" href="#skills">Compétences</a>
             <a class="w-100" href="#projects">Projets</a>
             <a class="w-100" href="#about">Loisirs</a>
+            <a class="w-100" href="#cv">CV</a>
         </div>
         
     </div>
@@ -30,7 +32,7 @@
             </div>
             <div class="w-50 m-4 ml-2 d-flex flex-column justify-content-center">
                 <h1>Romain Hannoir</h1>
-                <h4 class="my-2">Développeur junior et Étudiant en BUT informatique à l'IUT de Lens</h4>
+                <h4 class="my-2">Développeur junior et étudiant en BUT informatique à l'IUT de Lens</h4>
                 <div class="icon-container">
                     <a href="https://github.com/Romain-02"><img class="icon rounded-circle" src="images/iconeGithub.png"></a>
                     <a href=""><img class="icon rounded-circle" src="images/linkedInIcone.png"></a>
@@ -44,22 +46,20 @@
         <div id="formation" class="section d-flex flex-column">
             <h2>Formation</h2>
             <div class="d-flex flex-column justify-content-center align-items-center sub-section">
-                <div class="d-flex justify-content-center align-items-center w-100">
+                <div class="div-text reverse d-flex justify-content-center align-items-center w-100">
                     <div class="mr-4 ml-2 mb-2">
                         <img src="images/iut.jpg" class="effect" alt="iut">
                     </div>
                     <div>
                         <h3 class="effect">Préparation d'un bachelor universitaire de technologie (BUT) informatique.</h3>
-                        <p class="effect">Depuis 2023, j'étudie à l'IUT de Lens pour obtenir mon BUT informatique.
-                            J'ai validé les six compétences de première année, et je suis actuellement en deuxième année.
+                        <p class="text-justify effect">Depuis 2023, j'étudie à l'IUT de Lens pour obtenir mon BUT informatique. J'ai validé les six compétences de première année, et je suis actuellement en deuxième année.
                         </p>
                     </div>
                 </div>
-                <div class="d-flex justify-content-center align-items-center w-100">
+                <div class="div-text d-flex justify-content-center align-items-center w-100">
                     <div>
-                        <h3 class="text-justify effect">Obtention du baccalauréat général Math/NSI.</h3>
-                        <p class="text-justify effect">En 2023, j'ai obtenu au lycée Blaise Pascal de Longuenesse mon baccalauréat avec les spécialités Maths
-                            , Maths expertes et NSI avec mention très bien.</p>
+                        <h3 class="effect">Obtention du baccalauréat général Math/NSI.</h3>
+                        <p class="text-justify effect">En 2023, j'ai obtenu au lycée Blaise Pascal de Longuenesse mon baccalauréat avec les spécialités Maths, Maths expertes et NSI avec mention très bien.</p>
                     </div>
                     <div class="m-2 ml-4">
                         <img id="lycee" class="effect" src="images/lycee.png" alt="">
@@ -124,7 +124,8 @@
 
         
         <div id="projects" class="section d-flex flex-column justify-content-center">
-            <h2>Projet</h2>
+            <h2>Projets</h2>
+            <h3 class="text-center my-4">Ces projets sont reliés à mon github.</h3>
             <div class="mx-auto w-75 d-flex justify-content-center flex-wrap">
                 <button class="filter-btn" onclick="printProjects('')">Tous</button>
                 <button class="filter-btn" onclick="printProjects('Python')">Python</button>
@@ -159,6 +160,16 @@
                 </div>  
             </div>
         </div>    
+
+        <div id="cv" class="section">
+            <h2>Mon CV</h2>
+            <div class="d-flex justify-content-center align-items-center sub-section">
+                <p class="mt-4">Vous pouvez télécharger mon CV en cliquant sur le bouton ci-dessous :</p>
+                <a id="cv-download" href="/CV/Hannoir Romain - CV.pdf" download="Hannoir Romain - CV" class="mt-2 mx-3 btn btn-warning hover-text-white">
+                    Télécharger le CV
+                </a>
+            </div>
+        </div>
     </div>
 
     <footer class="footer mt-4">
@@ -167,7 +178,7 @@
                 <div class="col-md-4 text-center mt-2">
                     <h5>Contact</h5>
                     <p>Email : <a href="mailto:r.hannoir@gmail.com">r.hannoir@gmail.com</a></p>
-                    <p>Téléphone : <a href="tel:+33123456789">+33 1 23 45 67 89</a></p>
+                    <p id="phone">Téléphone : <a href="tel:+33749133025">+33 7 49 13 30 25</a></p>
                 </div>
                 <div class="col-md-4 text-center mt-2">
                     <h5>Suivez-moi</h5>

@@ -49,6 +49,17 @@ body, html {
     transition: width 0.3s ease; 
 }
 
+.sidebar .language-icon{
+    width: 20%;
+    border-radius: 50px;
+    margin-bottom: 6px;
+    margin-left: 5px;
+}
+
+.sidebar .language-icon:hover{
+    cursor: pointer;
+}
+
 .main-content {
     margin-left: 250px;
     padding: 0 30px;
@@ -82,7 +93,7 @@ footer{
 .img-container{
     width: 280px;
     height: 280px;
-    background-color: rgb(157, 105, 41);
+    background-color: #b4742f;
 }
 
 .icon-container{
@@ -171,8 +182,6 @@ footer{
     text-decoration: underline;
 }
 
-
-
 .filter-btn {
     padding: 10px 20px;
     margin: 5px;
@@ -240,6 +249,10 @@ footer{
 
 .btn-orange:hover {
     background-color: #d46d00;
+}
+
+.hover-text-white:hover{
+    color: white !important;
 }
 
 /* loisir */
@@ -439,6 +452,23 @@ footer h5{
     .url img{
         max-width: 65%;
         max-height: 65%;
+    }
+
+    .div-text{
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .div-text * {
+        text-align: center !important;
+    }
+
+    h3{
+        margin: 20px;
+    }
+
+    .reverse{
+        flex-direction: column-reverse;
     }
 }
 
