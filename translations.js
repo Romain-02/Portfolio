@@ -38,13 +38,13 @@ function translatePage(event) {
       );
 
     //language and icon
-    let language = event.target.src.includes('/images/france.png') ? "angleterre" : "france"; 
+    let language = event.target.src.includes('images/france.png') ? "angleterre" : "france"; 
     let translations = language == "france" ? eng_to_french : french_to_eng; 
-    event.target.src = '/images/' + language + '.png';
+    event.target.src = 'images/' + language + '.png';
 
     //CV
-    document.getElementById('cv-download').href = language == "france" ? "/CV/Hannoir Romain - CV.pdf" : "/CV/Hannoir Romain - Resume.pdf"
-    document.getElementById('cv-download').download = language == "france" ? "Hannoir Romain - CV.pdf" : "/CV/Hannoir Romain - Resume.pdf"
+    document.getElementById('cv-download').href = language == "france" ? "CV/Hannoir Romain - CV.pdf" : "CV/Hannoir Romain - Resume.pdf"
+    document.getElementById('cv-download').download = language == "france" ? "Hannoir Romain - CV.pdf" : "Hannoir Romain - Resume.pdf"
 
     const elements = document.querySelectorAll("*"); // Sélectionne tous les éléments de la page
 
