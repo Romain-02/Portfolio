@@ -209,8 +209,18 @@ footer{
     outline: none; 
 }
 
+/* custom color */
+.bg-custom-red{
+    background-color: #FF6347;
+}
 
+.bg-custom-orange{
+    background-color: #FFA900;
+}
 
+.bg-custom-yellow{
+    background-color: #BBBB00;
+}
 
 .img-project{
     width: 50%;
