@@ -95,8 +95,9 @@ function printProjects(filter){
     activeFilter = filter;
     const repoList = document.getElementById("list-repositories");
     repoList.innerHTML = ``;
-    repositories.forEach((repo, i) => {
-        if(filter === '' || repositories[i]['language'] === filter || (filter === 'Autre' && !(['Python', 'JavaScript', 'Java', 'HTML'].includes(repositories[i]['language'])))){
+    const filteredRepositories = repositories.filter((repository) => repository.topics.includes('portfolio'))
+    filteredRepositories.forEach((repo, i) => {
+        if(filter === '' || filteredRepositories[i]['language'] === filter || (filter === 'Autre' && !(['Python', 'JavaScript', 'Java', 'HTML'].includes(repositories[i]['language'])))){
             repoList.innerHTML += `
             <div id="project`+ i +`" class="project effect">
                 <img class="img-project" id="project${i}">
