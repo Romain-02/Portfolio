@@ -3,199 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Portfolio</title>
-    <link rel="stylesheet"href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Romain Hannoir - Portfolio</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="index.css">
-    <script src="translations.js"></script>
-    <script src="index.js"></script>
+    <script type="module" src="index.js"></script>
 </head>
-<body>
-    <div class="sidebar d-flex flex-column align-items-start p-3">
-        <h4 id="portfolio-title" class="text-center w-100 mt-3 mb-4">Mon Portfolio<img class="language-icon" src="images/france.png" onClick="translatePage(event)"></h4>
-        <div class="sidebar-links d-flex flex-column flex-wrap w-100">
-            <a class="w-100" href="#home">Accueil</a>
-            <a class="w-100" href="#formation">Formation</a>
-            <a class="w-100" href="#skills">Compétences</a>
-            <a class="w-100" href="#projects">Projets</a>
-            <a class="w-100" href="#about">Loisirs</a>
-            <a class="w-100" href="#cv">CV</a>
+<body class="bg-dark text-light">
+
+    <div class="sidebar">
+        <div class="sidebar-header p-4 text-center">
+            <img src="images/photo.png" alt="Romain Hannoir" class="img-fluid rounded-circle mb-3 border border-warning" style="width: 120px;">
+            <h5 class="text-warning">Romain Hannoir</h5>
+            <button id="lang-toggle" class="btn btn-sm btn-outline-warning mt-2" onclick="translatePage()">FR</button>
         </div>
-        
-    </div>
-
-    <div class="main-content">
-        <div id="home" class="section header align-items-center d-flex">
-            <div class="d-flex justify-content-center w-50 m-4 mr-2">
-                <div class="img-container rounded-circle d-flex justify-content-center align-items-center">
-                    <img src="images/photo.png" alt="photo" class="img-photo img-fluid rounded-circle">
-                </div>
-            </div>
-            <div class="w-50 m-4 ml-2 d-flex flex-column justify-content-center">
-                <h1>Romain Hannoir</h1>
-                <h4 class="my-2">Alternant chez Primever et étudiant en BUT informatique à l'IUT de Lens</h4>
-                <div class="icon-container">
-                    <a href="https://github.com/Romain-02"><img class="icon rounded-circle" src="images/iconeGithub.png"></a>
-                    <a href="https://www.linkedin.com/in/romain-hannoir"><img class="icon rounded-circle" src="images/linkedinIcone.png"></a>
-                    <a href="https://www.canva.com/design/DAGQtgf90tA/VEiTNxY6ucH3AxiKrfkP_Q/edit?utm_content=DAGQtgf90tA&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton"><img class="icon rounded-circle" src="images/canva.jpg"></a>
-
-                </div>
-            </div>
-            
-        </div>
-
-        <div id="formation" class="section d-flex flex-column">
-            <h2>Formation</h2>
-            <div class="d-flex flex-column justify-content-center align-items-center sub-section">
-                <div class="div-text reverse d-flex justify-content-center align-items-center w-100">
-                    <div class="mr-4 ml-2 mb-2">
-                        <img src="images/iut.jpg" class="effect" alt="iut">
-                    </div>
-                    <div>
-                        <h3 class="effect">Préparation d'un bachelor universitaire de technologie (BUT) informatique.</h3>
-                        <p class="text-justify effect">Depuis 2023, j'étudie à l'IUT de Lens pour obtenir mon BUT informatique. J'ai validé les six compétences de première année, et je suis actuellement en deuxième année.
-                        </p>
-                    </div>
-                </div>
-                <div class="div-text d-flex justify-content-center align-items-center w-100">
-                    <div>
-                        <h3 class="effect">Obtention du baccalauréat général Math/NSI.</h3>
-                        <p class="text-justify effect">En 2023, j'ai obtenu au lycée Blaise Pascal de Longuenesse mon baccalauréat avec les spécialités Maths, Maths expertes et NSI avec mention très bien.</p>
-                    </div>
-                    <div class="m-2 ml-4">
-                        <img id="lycee" class="effect" src="images/lycee.png" alt="">
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="skills" class="section">
-            <h2>Compétences</h2>
-            <div class="d-flex flex-column justify-content-center align-items-center sub-section mt-5">
-                <div class="mb-4 w-100 effect">
-                    <h4>Java</h4>
-                    <div class="progress">
-                        <div class="progress-bar bg-custom-orange" role="progressbar" style="width: 75%;" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                </div>
-
-                <div class="mb-4  w-100 effect">
-                    <h4>Python</h4>
-                    <div class="progress">
-                        <div class="progress-bar bg-custom-orange" role="progressbar" style="width: 70%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                </div>
-
-                <div class="mb-4  w-100 effect">
-                    <h4>C / C++</h4>
-                    <div class="progress">
-                        <div class="progress-bar bg-custom-orange" role="progressbar" style="width:45%;" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                </div>
-
-                <div class="mb-4  w-100 effect">
-                    <h4>HTML / CSS / Bootstrap</h4>
-                    <div class="progress">
-                        <div class="progress-bar bg-custom-red" role="progressbar" style="width: 65%;" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                </div>
-
-                <div class="mb-4  w-100 effect">
-                    <h4>JavaScript</h4>
-                    <div class="progress">
-                        <div class="progress-bar bg-custom-red" role="progressbar" style="width: 65%;" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                </div>
-
-                <div class="mb-4  w-100 effect">
-                    <h4>PHP / Laravel</h4>
-                    <div class="progress">
-                        <div class="progress-bar bg-custom-red" role="progressbar" style="width: 60%;" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                </div>
-
-                <div class="mb-4  w-100 effect">
-                    <h4>SQL / SQLite / PostgreSQL</h4>
-                    <div class="progress">
-                        <div class="progress-bar bg-custom-yellow" role="progressbar" style="width: 65%;" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        
-        <div id="projects" class="section d-flex flex-column justify-content-center">
-            <h2>Projets</h2>
-            <h3 class="text-center my-4">Ces projets sont automatiquement reliés à mon github.</h3>
-            <div class="mx-auto w-75 d-flex justify-content-center flex-wrap">
-                <button class="filter-btn" onclick="printProjects('')">Tous</button>
-                <button class="filter-btn" onclick="printProjects('Python')">Python</button>
-                <button class="filter-btn" onclick="printProjects('Java')">Java</button>
-                <button class="filter-btn" onclick="printProjects('HTML')">HTML/CSS</button>
-                <button class="filter-btn" onclick="printProjects('JavaScript')">JavaScript</button>
-                <button class="filter-btn" onclick="printProjects('Autre')">Autre</button>
-            </div>
-            <div class="d-flex flex-column justify-content-center align-items-center">
-            <div id="selectedProject" class="effect"></div>
-            <div></div>
-            <div id="list-repositories" class="d-flex justify-content-center align-items-center sub-section flex-wrap mt-2 ml-2">
-                <!-- index.js va remplir les projets -->
-            </div>
-            </div>
-        </div>
-
-        <div id="about" class="section">
-            <h2>Loisir</h2>
-            <div class="d-flex justify-content-center align-items-center sub-section flex-wrap hobbyContainer mt-5 mb-0">
-                <div class="effect">
-                    <img src="images/velo.png" class="hobbyImg" alt="sport">
-                    <p>J'aime le sport depuis petit, en particulier le football. Aujourd'hui, je fais surtout de la course, du vélo et de la natation.</p>
-                </div>
-                <div class="effect">
-                    <img src="images/manette.webp" class="hobbyImg" alt="jeux vidéos">
-                    <p>J'ai toujours aimé les jeux vidéo, notamment le côté compétitif. C'est cela qui m'a motivé à apprendre la programmation.</p>
-                </div>
-                <div class="effect">
-                    <img src="images/echec.png" class="hobbyImg" alt="echec">
-                    <p>Après avoir créé un jeu d'échecs, j'ai commencé à y jouer de plus en plus afin de m'améliorer jusqu'à devenir un joueur régulier.</p>
-                </div>  
-            </div>
-        </div>    
-
-        <div id="cv" class="section">
-            <h2>Mon CV</h2>
-            <div class="d-flex justify-content-center align-items-center sub-section">
-                <p class="mt-4">Vous pouvez télécharger mon CV en cliquant sur le bouton ci-dessous :</p>
-                <a id="cv-download" href="/CV/Hannoir Romain - CV.pdf" download="Hannoir Romain - CV" class="mt-2 mx-3 btn btn-warning hover-text-white">
-                    Télécharger le CV
-                </a>
+        <nav class="nav flex-column p-2">
+            <a class="nav-link" href="#home" data-t="home"><i class="fas fa-home mr-2"></i> Accueil</a>
+            <a class="nav-link" href="#experience" data-t="experience"><i class="fas fa-briefcase mr-2"></i> Expérience</a>
+            <a class="nav-link" href="#formation" data-t="formation"><i class="fas fa-graduation-cap mr-2"></i> Formation</a>
+            <a class="nav-link" href="#skills" data-t="skills"><i class="fas fa-code mr-2"></i> Compétences</a>
+            <a class="nav-link" href="#projects" data-t="projects"><i class="fas fa-project-diagram mr-2"></i> Projets</a>
+            <a class="nav-link" href="#about" data-t="about"><i class="fas fa-user mr-2"></i> Loisirs</a>
+        </nav>
+        <div class="sidebar-footer p-4 mt-auto text-center">
+            <div class="social-links">
+                <a href="https://github.com/Romain-02" target="_blank" class="text-light mx-2"><i class="fab fa-github fa-lg"></i></a>
+                <a href="https://www.linkedin.com/in/romain-hannoir" target="_blank" class="text-light mx-2"><i class="fab fa-linkedin fa-lg"></i></a>
             </div>
         </div>
     </div>
 
-    <footer class="footer mt-4">
-        <div class="container w-100">
-            <div class="row d-flex justify-content-center mt-2">
-                <div class="col-md-4 text-center mt-2">
-                    <h5>Contact</h5>
-                    <p>Email : <a href="mailto:r.hannoir@gmail.com">r.hannoir@gmail.com</a></p>
-                    <p id="phone">Téléphone : <a href="tel:+33749133025">+33 7 49 13 30 25</a></p>
-                </div>
-                <div class="col-md-4 text-center mt-2">
-                    <h5>Suivez-moi</h5>
-                    <ul class="list-unstyled mt-2">
-                        <li><a href="https://github.com/Romain-02">GitHub</a></li>
-                        <li><a href="https://www.linkedin.com/in/romain-hannoir">LinkedIn</a></li>
-                    </ul>
-                </div>
+    <main class="main-content">
+        <section id="home" class="min-vh-100 d-flex align-items-center p-5">
+            <div class="header">
+                <h1 class="display-3 text-warning font-weight-bold"></h1>
+                <h4 class="text-muted mb-4"></h4>
+                <a href="#projects" class="btn btn-warning btn-lg px-4" data-t="view_projects">Voir mes projets</a>
             </div>
-            <hr class="footer-divider">
-            <div class="row">
-                <div class="col text-center">
-                    <p class="mb-0">© 2024 Hannoir Romain - PortFolio.</p>
-                </div>
-            </div>
-        </div>
-    </footer>
+        </section>
+
+        <section id="experience" class="p-5">
+            <h2 class="text-warning mb-5" data-t="experience">Expérience professionnelle</h2>
+            <div id="experience-list"></div>
+        </section>
+
+        <section id="formation" class="p-5 bg-darker">
+            <h2 class="text-warning mb-5" data-t="formation">Formation</h2>
+            <div id="education-list"></div>
+        </section>
+
+        <section id="skills" class="p-5">
+            <h2 class="text-warning mb-5" data-t="skills">Compétences</h2>
+            <div id="skills-list"></div>
+        </section>
+
+        <section id="projects" class="p-5 bg-darker">
+            <h2 class="text-warning mb-5" data-t="projects">Projets</h2>
+            <div id="projects-list" class="d-flex flex-wrap justify-content-center"></div>
+        </section>
+
+        <section id="about" class="p-5">
+            <h2 class="text-warning mb-5" data-t="about">Loisirs</h2>
+            <div id="hobbies-list" class="d-flex flex-wrap justify-content-center"></div>
+        </section>
+
+        <footer class="p-5 text-center border-top border-secondary">
+            <p class="text-muted">&copy; 2024 Romain Hannoir - Portfolio</p>
+        </footer>
+    </main>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
