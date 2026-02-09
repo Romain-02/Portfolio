@@ -6,7 +6,6 @@
     <title>Portfolio</title>
     <link rel="stylesheet"href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="index.css">
-    <script src="translations.js"></script>
     <script src="index.js"></script>
 </head>
 <body>
@@ -15,6 +14,7 @@
         <div class="sidebar-links d-flex flex-column flex-wrap w-100">
             <a class="w-100" href="#home">Accueil</a>
             <a class="w-100" href="#formation">Formation</a>
+            <a class="w-100" href="#experience">Expérience</a>
             <a class="w-100" href="#skills">Compétences</a>
             <a class="w-100" href="#projects">Projets</a>
             <a class="w-100" href="#about">Loisirs</a>
@@ -68,58 +68,123 @@
             </div>
         </div>
 
-        <div id="skills" class="section">
-            <h2>Compétences</h2>
-            <div class="d-flex flex-column justify-content-center align-items-center sub-section mt-5">
-                <div class="mb-4 w-100 effect">
-                    <h4>Java</h4>
-                    <div class="progress">
-                        <div class="progress-bar bg-custom-orange" role="progressbar" style="width: 75%;" aria-valuemin="0" aria-valuemax="100"></div>
+        <div id="experience" class="section d-flex flex-column">
+            <h2>Expérience</h2>
+            <div class="d-flex flex-column justify-content-center align-items-center sub-section">
+                <div class="div-text reverse d-flex justify-content-center align-items-center w-100">
+                    <div class="mr-4 ml-2 mb-2 w-100">
+                        <img src="images/logo-primever-2015-quadri.webp" class="primever-img" alt="primever">
                     </div>
-                </div>
-
-                <div class="mb-4  w-100 effect">
-                    <h4>Python</h4>
-                    <div class="progress">
-                        <div class="progress-bar bg-custom-orange" role="progressbar" style="width: 70%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                </div>
-
-                <div class="mb-4  w-100 effect">
-                    <h4>C / C++</h4>
-                    <div class="progress">
-                        <div class="progress-bar bg-custom-orange" role="progressbar" style="width:45%;" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                </div>
-
-                <div class="mb-4  w-100 effect">
-                    <h4>HTML / CSS / Bootstrap</h4>
-                    <div class="progress">
-                        <div class="progress-bar bg-custom-red" role="progressbar" style="width: 65%;" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                </div>
-
-                <div class="mb-4  w-100 effect">
-                    <h4>JavaScript</h4>
-                    <div class="progress">
-                        <div class="progress-bar bg-custom-red" role="progressbar" style="width: 65%;" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                </div>
-
-                <div class="mb-4  w-100 effect">
-                    <h4>PHP / Laravel</h4>
-                    <div class="progress">
-                        <div class="progress-bar bg-custom-red" role="progressbar" style="width: 60%;" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                </div>
-
-                <div class="mb-4  w-100 effect">
-                    <h4>SQL / SQLite / PostgreSQL</h4>
-                    <div class="progress">
-                        <div class="progress-bar bg-custom-yellow" role="progressbar" style="width: 65%;" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div>
+                        <h3 class="effect">Développeur web full stack en alternance chez Primever (2025–2026)</h3>
+                        <p class="text-justify effect">
+                            Dans le cadre de mon BUT, j'ai pu réalisé ma deuxième et troisième année d'alternance chez Primever en tant que développeur web full stack. J’ai participé au développement et à la maintenance de plusieurs applications web, principalement avec React et Symfony, et j’ai également travaillé avec le framework GLPI pour la mise en place d’une solution d’assistance (gestion et remontée des tickets).
+                        </p>
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div id="skills" class="section">
+            <h2>Compétences</h2>
+            <div class="skills-container w-100">
+            <!-- Langages de programmation -->
+            <div class="skill-category mb-4">
+                <h3 class="skill-category-title">Langages</h3>
+                <div class="skill-logos">
+                    <div class="skill-logo effect" title="Java">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java" />
+                    </div>
+                    <div class="skill-logo effect" title="Python">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" />
+                    </div>
+                    <div class="skill-logo effect" title="JavaScript">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" />
+                    </div>
+                    <div class="skill-logo effect" title="PHP">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" alt="PHP" />
+                    </div>
+                    <div class="skill-logo effect" title="C/C++">
+                        <span class="badge text-dark info-badge badge-in-progress">En cours</span>
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" alt="C/C++" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Frontend -->
+            <div class="skill-category mb-4">
+                <h3 class="skill-category-title">Frontend</h3>
+                <div class="skill-logos">
+                    <div class="skill-logo effect" title="React">
+                        <span class="badge text-dark info-badge">Main</span>
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" />
+                    </div>
+                    <div class="skill-logo effect" title="Angular">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg" alt="Angular" />
+                    </div>
+                    <div class="skill-logo effect" title="Tailwind">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" alt="Tailwind" />
+                    </div>
+                    <div class="skill-logo effect" title="Bootstrap">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg" alt="Bootstrap" />
+                    </div>
+                    <div class="skill-logo effect" title="NextJS">
+                        <span class="badge text-dark info-badge badge-in-progress">En cours</span>
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" alt="NextJS" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Backend & Bases de données -->
+            <div class="skill-category mb-4">
+                <h3 class="skill-category-title">Backend & Bases de données</h3>
+                <div class="skill-logos">
+                    <div class="skill-logo effect" title="Symfony">
+                        <span class="badge text-dark info-badge">Main</span>
+                        <img src="https://img.alwaysdata.com/marketplace/symfony.svg" alt="Symfony" />
+                    </div>
+                    <div class="skill-logo effect" title="Laravel">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-original.svg" alt="Laravel" />
+                    </div>
+                    <div class="skill-logo effect" title="Spring">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" alt="Spring" />
+                    </div>
+                    <div class="skill-logo effect" title="SQL">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="PostgreSQL" />
+                    </div>
+                    <div class="skill-logo effect" title="SQLite">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original.svg" alt="SQLite" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Outils & Autres -->
+            <div class="skill-category mb-4">
+                <h3 class="skill-category-title">Outils</h3>
+                <div class="skill-logos">
+                    <div class="skill-logo effect" title="Git">
+                        <span class="badge text-dark info-badge">Main</span>
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git" />
+                    </div>
+                    <div class="skill-logo effect" title="Gitlab">
+                        <span class="badge text-dark info-badge">Main</span>
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/gitlab/gitlab-original.svg" alt="Gitlab" />
+                    </div>
+                    <div class="skill-logo effect" title="Github">
+                        <img src="images/github.png" alt="Github" />
+                    </div>
+                    <div class="skill-logo effect" title="Docker">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker" />
+                    </div>
+                    <div class="skill-logo effect" title="Jira">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jira/jira-original.svg" alt="Jira" />
+                    </div>
+                    <div class="skill-logo effect" title="GLPI">
+                        <img src="https://remiflandrois.fr/wp-content/uploads/2022/08/GLPI_Logo-color.png" alt="GLPI" />
+                    </div>
+                </div>
+            </div>
+        </div>
         </div>
 
         
@@ -130,9 +195,7 @@
                 <button class="filter-btn" onclick="printProjects('')">Tous</button>
                 <button class="filter-btn" onclick="printProjects('Python')">Python</button>
                 <button class="filter-btn" onclick="printProjects('Java')">Java</button>
-                <button class="filter-btn" onclick="printProjects('HTML')">HTML/CSS</button>
-                <button class="filter-btn" onclick="printProjects('JavaScript')">JavaScript</button>
-                <button class="filter-btn" onclick="printProjects('Autre')">Autre</button>
+                <button class="filter-btn" onclick="printProjects('Web')">Web</button>
             </div>
             <div class="d-flex flex-column justify-content-center align-items-center">
             <div id="selectedProject" class="effect"></div>
