@@ -205,7 +205,6 @@ async function setImgProject(i, selected = false){
         return "images/" + (repositories[i]['language'] in images ? images[repositories[i]['language']] : 'codeDefault.png');
     })    
     .then(imageUrl => {
-        console.log()
         fetchedImages[i] = imageUrl;
         const imgElement = document.querySelector(selected ? '.img-project' : `#project${i} .img-project`);
         imgElement.src = imageUrl;
@@ -220,7 +219,6 @@ function printProjects(filter, selectedProject = true){
     activeFilter = filter;
     const repoList = document.getElementById("list-repositories");
     repoList.innerHTML = ``;
-    console.log(repositories)
     repositories.forEach((repo, i) => {
         if(filter === '' || repositories[i]['language'] === filter || (filter === 'Web' && ['HTML/CSS', 'JavaScript'].includes(repositories[i]['language']))){
             repoList.innerHTML += `
