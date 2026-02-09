@@ -220,7 +220,6 @@ function printProjects(filter, selectedProject = true){
     const repoList = document.getElementById("list-repositories");
     repoList.innerHTML = ``;
     repositories.forEach((repo, i) => {
-        console.log(repositories[i]['language'])
         if(filter === '' || repositories[i]['language'] === filter || (filter === 'Web' && ['HTML', 'PHP', 'JavaScript'].includes(repositories[i]['language']))){
             repoList.innerHTML += `
             <div id="project`+ i +`" class="project effect">
