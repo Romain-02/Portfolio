@@ -298,7 +298,8 @@ footer{
 
 .img-project{
     width: 50%;
-    margin: 8%
+    margin: 8%;
+    max-height: 100px;
 }
 
 .url{
