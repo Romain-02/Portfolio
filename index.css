@@ -475,9 +475,8 @@ footer h5{
 }
 
 #selectedProject img{
-    height: 60%;
-    width: 60%;
-    object-fit: cover;
+    max-height: 300px;
+    width: 100%;
 }
 
 .primever-img {
