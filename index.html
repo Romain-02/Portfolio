@@ -1,237 +1,372 @@
-index.htmlindex.html<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Romain Hannoir | Portfolio</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="test.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
-    <script src="test.js" defer></script>
-</head>
-<body>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="index.css" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"
+      defer
+    ></script>
+    <script src="index.js" defer></script>
+  </head>
+  <body>
     <div class="noise"></div>
     <div class="cursor-glow" id="cursorGlow"></div>
     <div id="canvas-container"></div>
+    <div class="project-modal" id="project-modal" hidden>
+      <div class="project-modal-backdrop" data-modal-close></div>
+      <article
+        class="project-modal-dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="project-modal-title"
+      >
+        <button
+          class="project-modal-close"
+          type="button"
+          aria-label="Fermer la fenêtre"
+          data-modal-close
+        >
+          ×
+        </button>
+        <div class="project-modal-visual">
+          <img id="project-modal-image" alt="" />
+        </div>
+        <div class="project-modal-body">
+          <span id="project-modal-language" class="project-language"></span>
+          <h3 id="project-modal-title"></h3>
+          <p id="project-modal-description"></p>
+          <div class="selected-actions">
+            <a
+              id="project-modal-link"
+              class="button button-primary"
+              target="_blank"
+              rel="noreferrer"
+              href="#"
+              data-i18n="projects.github"
+              >Voir sur GitHub</a
+            >
+          </div>
+        </div>
+      </article>
+    </div>
 
     <nav class="floating-nav" id="navbar" aria-label="Navigation principale">
-        <a href="#hero">Accueil</a>
-        <a href="#about">A propos</a>
-        <a href="#skills">Competences</a>
-        <a href="#experience">Experience</a>
-        <a href="#projects">Projets</a>
-        <a class="nav-contact" href="#contact">Contact</a>
+      <a href="#hero" data-i18n="nav.home">Accueil</a>
+      <a href="#about" data-i18n="nav.about">À propos</a>
+      <a href="#skills" data-i18n="nav.skills">Compétences</a>
+      <a href="#experience" data-i18n="nav.experience">Experience</a>
+      <a href="#projects" data-i18n="nav.projects">Projets</a>
+      <a class="nav-contact" href="#contact" data-i18n="nav.contact">Contact</a>
+      <button
+        class="language-toggle"
+        id="languageToggle"
+        type="button"
+        aria-label="Switch to English"
+      >
+        <img src="images/france.png" alt="Français" />
+      </button>
     </nav>
 
     <main>
-        <section id="hero" class="hero-section">
-            <div class="grid-pattern"></div>
-            <div class="hero-content reveal">
-                <span class="status-pill">Alternant Primever 2025-2026</span>
-                <h1>
-                    <span>Romain</span>
-                    <span class="text-gradient">Hannoir</span>
-                </h1>
-                <p>
-                    Etudiant en BUT informatique a l'IUT de Lens et developpeur web full stack en alternance.
-                    Je travaille principalement sur des applications web avec React, Symfony et GLPI.
-                </p>
-                <div class="hero-actions">
-                    <a class="button button-primary" href="#projects">Voir mes projets</a>
-                    <a class="button button-ghost" href="CV/Hannoir Romain - CV.pdf" download="Hannoir Romain - CV">Telecharger CV</a>
-                </div>
+      <section id="hero" class="hero-section">
+        <div class="grid-pattern"></div>
+        <div class="hero-content">
+          <span class="status-pill" data-i18n="hero.status"
+            >Alternant Primever 2025-2026</span
+          >
+          <h1>
+            <span class="text-gradient">Romain Hannoir</span>
+          </h1>
+          <p>
+            <span data-i18n="hero.subtitle"
+              >Étudiant en BUT informatique à l'IUT de Lens et développeur web
+              full stack en alternance. Je travaille principalement sur des
+              applications web avec React, Symfony et GLPI.</span
+            >
+          </p>
+          <div class="hero-actions">
+            <a
+              class="button button-primary"
+              href="#projects"
+              data-i18n="hero.projects"
+              >Voir mes projets</a
+            >
+            <a
+              id="heroResumeLink"
+              class="button button-ghost"
+              href="CV/Hannoir Romain - CV.pdf"
+              download="Hannoir Romain - CV"
+              data-i18n="common.resume"
+              >Télécharger CV</a
+            >
+          </div>
+        </div>
+      </section>
+
+      <section id="about" class="content-section">
+        <div class="section-title">
+          <span data-i18n="about.eyebrow">À propos</span>
+          <h2 data-i18n="about.title">Un profil orienté application</h2>
+        </div>
+
+        <div class="bento-grid">
+          <article class="bento-card bento-large">
+            <div class="tilt-content">
+              <h3 data-i18n="about.fullstack.title">Développeur full stack</h3>
+              <p data-i18n="about.fullstack.text">
+                Dans le cadre de mon BUT, je réalise ma deuxième et troisième
+                année d'alternance chez Primever. Je participe au développement
+                et a la maintenance de plusieurs applications web,
+                principalement avec React et Symfony.
+              </p>
             </div>
-        </section>
-
-        <section id="about" class="content-section">
-            <div class="section-title reveal">
-                <span>A propos</span>
-                <h2>Un profil oriente application</h2>
+            <div class="inline-tags">
+              <span>React</span>
+              <span>Symfony</span>
+              <span>GLPI</span>
             </div>
+          </article>
 
-            <div class="bento-grid">
-                <article class="bento-card bento-large reveal tilt-card" data-tilt>
-                    <div class="tilt-content">
-                        <span class="card-number">01</span>
-                        <h3>Developpeur full stack</h3>
-                        <p>
-                            Dans le cadre de mon BUT, je realise ma deuxieme et troisieme annee d'alternance chez Primever.
-                            Je participe au developpement et a la maintenance de plusieurs applications web, principalement avec React et Symfony.
-                        </p>
-                    </div>
-                    <div class="inline-tags">
-                        <span>React</span>
-                        <span>Symfony</span>
-                        <span>GLPI</span>
-                    </div>
-                </article>
-
-                <article class="bento-card reveal tilt-card" data-tilt>
-                    <div class="tilt-content">
-                        <span class="card-number">02</span>
-                        <h3>Formation</h3>
-                        <p>BUT informatique a l'IUT de Lens depuis 2023. Six competences de premiere annee validees.</p>
-                    </div>
-                </article>
-
-                <article class="bento-card profile-card reveal tilt-card" data-tilt>
-                    <div class="tilt-content">
-                        <img src="images/photo.png" alt="Photo de Romain Hannoir">
-                        <h3>Romain Hannoir</h3>
-                        <p>Lens, France</p>
-                    </div>
-                </article>
-
-                <article class="bento-card reveal tilt-card" data-tilt>
-                    <div class="tilt-content">
-                        <span class="card-number">03</span>
-                        <h3>Baccalaureat</h3>
-                        <p>Bac general Maths, Maths expertes et NSI obtenu en 2023 au lycee Blaise Pascal avec mention tres bien.</p>
-                    </div>
-                </article>
-
-                <article class="bento-card reveal tilt-card" data-tilt>
-                    <div class="tilt-content">
-                        <span class="card-number">04</span>
-                        <h3>Loisirs</h3>
-                        <p>Sport, jeux video competitifs et echecs. Ces passions m'ont aussi donne envie de programmer.</p>
-                    </div>
-                </article>
+          <article class="bento-card">
+            <div class="tilt-content">
+              <h3 data-i18n="about.education.title">Formation</h3>
+              <p data-i18n="about.education.text">
+                BUT informatique à l'IUT de Lens depuis 2023. Six compétences de
+                première année validées.
+              </p>
             </div>
-        </section>
+          </article>
 
-        <section id="skills" class="content-section">
-            <div class="section-title reveal">
-                <span>Stack</span>
-                <h2>Competences techniques</h2>
+          <article class="bento-card profile-card">
+            <div class="tilt-content">
+              <img src="images/photo.png" alt="Photo de Romain Hannoir" />
+              <h3>Romain Hannoir</h3>
+              <p data-i18n="about.location">Lens, France</p>
             </div>
+          </article>
 
-            <div class="skills-grid">
-                <article class="skill-panel reveal">
-                    <h3>Langages</h3>
-                    <div class="skill-tags">
-                        <span>Java</span>
-                        <span>Python</span>
-                        <span>JavaScript</span>
-                        <span>PHP</span>
-                        <span>C/C++ - En cours</span>
-                    </div>
-                </article>
-                <article class="skill-panel reveal">
-                    <h3>Frontend</h3>
-                    <div class="skill-tags">
-                        <span>React - Main</span>
-                        <span>Angular</span>
-                        <span>Tailwind</span>
-                        <span>Bootstrap</span>
-                        <span>NextJS - En cours</span>
-                    </div>
-                </article>
-                <article class="skill-panel reveal">
-                    <h3>Backend & bases de donnees</h3>
-                    <div class="skill-tags">
-                        <span>Symfony - Main</span>
-                        <span>Laravel</span>
-                        <span>Spring</span>
-                        <span>SQL</span>
-                        <span>SQLite</span>
-                    </div>
-                </article>
-                <article class="skill-panel reveal">
-                    <h3>Outils</h3>
-                    <div class="skill-tags">
-                        <span>Git - Main</span>
-                        <span>GitLab - Main</span>
-                        <span>GitHub</span>
-                        <span>Docker</span>
-                        <span>Jira</span>
-                        <span>GLPI</span>
-                    </div>
-                </article>
+          <article class="bento-card">
+            <div class="tilt-content">
+              <h3 data-i18n="about.bac.title">Baccalauréat</h3>
+              <p data-i18n="about.bac.text">
+                Bac général Maths, Maths expertes et NSI obtenu en 2023 au lycée
+                Blaise Pascal avec mention très bien.
+              </p>
             </div>
-        </section>
+          </article>
 
-        <section id="experience" class="content-section">
-            <div class="section-title reveal">
-                <span>Experience</span>
-                <h2>Parcours professionnel</h2>
+          <article class="bento-card">
+            <div class="tilt-content">
+              <h3 data-i18n="about.hobbies.title">Loisirs</h3>
+              <p data-i18n="about.hobbies.text">
+                Sport, jeux vidéo compétitifs et échecs. Ces passions m'ont
+                aussi donné envie de programmer.
+              </p>
             </div>
+          </article>
+        </div>
+      </section>
 
-            <div class="timeline">
-                <article class="timeline-item reveal">
-                    <div class="timeline-card">
-                        <span>2025 - 2026</span>
-                        <h3>Developpeur web full stack</h3>
-                        <p>Primever - Alternance</p>
-                    </div>
-                    <div class="timeline-text">
-                        <p>
-                            Developpement et maintenance d'applications web avec React et Symfony.
-                            Travail sur GLPI pour la mise en place d'une solution d'assistance, gestion et remontee des tickets.
-                        </p>
-                    </div>
-                </article>
+      <section id="skills" class="content-section">
+        <div class="section-title">
+          <span data-i18n="skills.eyebrow">Stack</span>
+          <h2 data-i18n="skills.title">Compétences techniques</h2>
+        </div>
 
-                <article class="timeline-item reveal">
-                    <div class="timeline-card">
-                        <span>Depuis 2023</span>
-                        <h3>BUT informatique</h3>
-                        <p>IUT de Lens</p>
-                    </div>
-                    <div class="timeline-text">
-                        <p>
-                            Formation en developpement informatique, conception d'applications,
-                            bases de donnees et methodes de projet.
-                        </p>
-                    </div>
-                </article>
+        <div class="skills-grid">
+          <article class="skill-panel">
+            <h3 data-i18n="skills.languages">Langages</h3>
+            <div class="skill-tags">
+              <span>Java</span>
+              <span>Python</span>
+              <span>JavaScript</span>
+              <span>PHP</span>
+              <span data-i18n="skills.inProgressC">C/C++</span>
             </div>
-        </section>
-
-        <section id="projects" class="content-section">
-            <div class="section-title reveal">
-                <span>GitHub</span>
-                <h2>Projets</h2>
-                <p>Ces projets sont automatiquement relies a mon GitHub.</p>
+          </article>
+          <article class="skill-panel">
+            <h3>Frontend</h3>
+            <div class="skill-tags">
+              <span data-i18n="skills.reactMain">React</span>
+              <span>Angular</span>
+              <span>Tailwind</span>
+              <span>Bootstrap</span>
+              <span data-i18n="skills.nextProgress">NextJS - En cours</span>
             </div>
-
-            <div class="project-filters reveal" aria-label="Filtres des projets">
-                <button class="filter-button is-active" type="button" data-filter="">Tous</button>
-                <button class="filter-button" type="button" data-filter="Python">Python</button>
-                <button class="filter-button" type="button" data-filter="Java">Java</button>
-                <button class="filter-button" type="button" data-filter="Web">Web</button>
+          </article>
+          <article class="skill-panel">
+            <h3 data-i18n="skills.backend">Backend & bases de données</h3>
+            <div class="skill-tags">
+              <span data-i18n="skills.symfonyMain">Symfony</span>
+              <span>Laravel</span>
+              <span>Spring</span>
+              <span>SQL</span>
+              <span>SQLite</span>
+              <span data-i18n="skills.dotnet">.Net - En cours</span>
             </div>
-
-            <p id="project-status" class="project-status reveal">Chargement des projets...</p>
-            <div id="selected-project" class="selected-project reveal" hidden></div>
-            <div id="project-list" class="projects-grid"></div>
-
-            <div class="github-link-wrap reveal">
-                <a class="button button-ghost" href="https://github.com/Romain-02" target="_blank" rel="noreferrer">Voir plus sur GitHub</a>
+          </article>
+          <article class="skill-panel">
+            <h3 data-i18n="skills.tools">Outils</h3>
+            <div class="skill-tags">
+              <span data-i18n="skills.gitMain">Git</span>
+              <span data-i18n="skills.gitlabMain">GitLab</span>
+              <span>GitHub</span>
+              <span>Docker</span>
+              <span>Jira</span>
+              <span>GLPI</span>
             </div>
-        </section>
+          </article>
+        </div>
+      </section>
 
-        <section id="contact" class="contact-section reveal">
-            <div class="contact-glow contact-glow-one"></div>
-            <div class="contact-glow contact-glow-two"></div>
-            <div class="contact-content">
-                <span>Contact</span>
-                <h2>Travaillons ensemble</h2>
-                <p>Vous pouvez me contacter par email, telephone, LinkedIn ou consulter mon GitHub.</p>
-                <div class="contact-actions">
-                    <a class="button button-primary" href="mailto:r.hannoir@gmail.com">r.hannoir@gmail.com</a>
-                    <a class="button button-ghost" href="tel:+33749133025">+33 7 49 13 30 25</a>
-                    <a class="button button-ghost" href="https://www.linkedin.com/in/romain-hannoir" target="_blank" rel="noreferrer">LinkedIn</a>
-                    <a class="button button-ghost" href="CV/Hannoir Romain - CV.pdf" download="Hannoir Romain - CV">CV</a>
-                </div>
+      <section id="experience" class="content-section">
+        <div class="section-title">
+          <span data-i18n="experience.eyebrow">Expérience</span>
+          <h2 data-i18n="experience.title">Parcours professionnel</h2>
+        </div>
+
+        <div class="timeline">
+          <article class="timeline-item">
+            <div class="timeline-card">
+              <span>2025 - 2026</span>
+              <h3 data-i18n="experience.primever.title">
+                Développeur web full stack
+              </h3>
+              <p data-i18n="experience.primever.company">
+                Primever - Alternance
+              </p>
             </div>
-        </section>
+            <div class="timeline-text">
+              <p data-i18n="experience.primever.text">
+                Développement et maintenance d'applications web avec React et
+                Symfony. Travail sur GLPI pour la mise en place d'une solution
+                d'assistance, gestion et remontée des tickets.
+              </p>
+            </div>
+          </article>
+
+          <article class="timeline-item">
+            <div class="timeline-card">
+              <span data-i18n="experience.since2023">Depuis 2023</span>
+              <h3 data-i18n="experience.iut.title">BUT informatique</h3>
+              <p>IUT de Lens</p>
+            </div>
+            <div class="timeline-text">
+              <p data-i18n="experience.iut.text">
+                Formation en développement informatique, conception
+                d'applications, bases de données et méthodes de projet.
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="projects" class="content-section">
+        <div class="section-title">
+          <span>GitHub</span>
+          <h2 data-i18n="projects.title">Projets</h2>
+          <p data-i18n="projects.intro">
+            Ces projets sont automatiquement reliés à mon GitHub.
+          </p>
+        </div>
+
+        <div class="project-filters" aria-label="Filtres des projets">
+          <button
+            class="filter-button is-active"
+            type="button"
+            data-filter=""
+            data-i18n="projects.all"
+          >
+            Tous
+          </button>
+          <button class="filter-button" type="button" data-filter="Python">
+            Python
+          </button>
+          <button class="filter-button" type="button" data-filter="Java">
+            Java
+          </button>
+          <button class="filter-button" type="button" data-filter="Web">
+            Web
+          </button>
+        </div>
+
+        <p
+          id="project-status"
+          class="project-status"
+          data-i18n="projects.loading"
+        >
+          Chargement des projets...
+        </p>
+        <div id="selected-project" class="selected-project" hidden></div>
+        <div id="project-list" class="projects-grid"></div>
+        <div class="project-more-wrap">
+          <button
+            id="show-more-projects"
+            class="button button-ghost"
+            type="button"
+            data-i18n="projects.showMore"
+            hidden
+          >
+            Voir plus de projets
+          </button>
+          <a
+            class="button button-ghost"
+            href="https://github.com/Romain-02"
+            target="_blank"
+            rel="noreferrer"
+            data-i18n="projects.moreGithub"
+            >Voir plus sur GitHub</a
+          >
+        </div>
+      </section>
+
+      <section id="contact" class="contact-section">
+        <div class="contact-glow contact-glow-one"></div>
+        <div class="contact-glow contact-glow-two"></div>
+        <div class="contact-content">
+          <span>Contact</span>
+          <h2 data-i18n="contact.title">Informations</h2>
+          <p data-i18n="contact.text">
+            Vous pouvez me contacter par email, téléphone, LinkedIn ou consulter
+            mon GitHub.
+          </p>
+          <div class="contact-actions">
+            <a class="button button-primary" href="mailto:r.hannoir@gmail.com"
+              >r.hannoir@gmail.com</a
+            >
+            <a class="button button-ghost" href="tel:+33749133025"
+              >+33 7 49 13 30 25</a
+            >
+            <a
+              class="button button-ghost"
+              href="https://www.linkedin.com/in/romain-hannoir"
+              target="_blank"
+              rel="noreferrer"
+              >LinkedIn</a
+            >
+            <a
+              id="contactResumeLink"
+              class="button button-ghost"
+              href="CV/Hannoir Romain - CV.pdf"
+              download="Hannoir Romain - CV"
+              >CV</a
+            >
+          </div>
+        </div>
+      </section>
     </main>
 
     <footer class="site-footer">
-        <p>2024 Hannoir Romain - Portfolio.</p>
+      <p data-i18n="footer.copyright">2024 Hannoir Romain - Portfolio.</p>
     </footer>
-</body>
+  </body>
 </html>
