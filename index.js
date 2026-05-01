@@ -1,323 +1,320 @@
-let activeLanguage = 'fr'
-let repositories;
-let selectedProjectIndex = -1
-let activeFilter = ''
-let fetchedImages = {}
+let repositories = [];
+let activeFilter = "";
+let selectedProjectIndex = -1;
+const fetchedImages = {};
 
-function translatePage(event) {
-    const french_to_eng = {
-        "Mon Portfolio": "My Portfolio",
-        "Accueil": "Home",
-        "Formation": "Education",
-        "Compétences": "Skills",
-        "Projets": "Projects",
-        "Loisirs": "Hobbies",
-        "Romain Hannoir": "Romain Hannoir",
-        "Développeur junior et étudiant en BUT informatique à l'IUT de Lens": "Junior developer and student in a computer science bachelor program at IUT of Lens",
-        "Préparation d'un bachelor universitaire de technologie (BUT) informatique.": "Pursuing a Bachelor of Technology in Computer Science.",
-        "Depuis 2023, j'étudie à l'IUT de Lens pour obtenir mon BUT informatique. J'ai validé les six compétences de première année, et je suis actuellement en deuxième année.": 
-            "Since 2023, I have been studying at the IUT of Lens to earn my Bachelor's degree in Computer Science. I have validated the six core competencies of the first year and am currently in the second year.",
-        "Obtention du baccalauréat général Math/NSI.": "Obtained the Baccalaureate specialization in mathematics and digital and computer sciences.",
-        "En 2023, j'ai obtenu au lycée Blaise Pascal de Longuenesse mon baccalauréat avec les spécialités Maths, Maths expertes et NSI avec mention très bien.": 
-            "In 2023, I graduated from Blaise Pascal High School in Longuenesse with specialization in Mathematics, Advanced Mathematics, and Computer Science with honors.",
-        "Compétences": "Skills",
-        "Loisir": "Hobbies",
-        "Ces projets sont reliés à mon github." : "These projects are linked to my GitHub.",
-        "J'aime le sport depuis petit, en particulier le football. Aujourd'hui, je fais surtout de la course, du vélo et de la natation.": 
-            "I have loved sports since I was a child, especially football. Today, I mostly run and cycle.",
-        "J'ai toujours aimé les jeux vidéo, notamment le côté compétitif. C'est cela qui m'a motivé à apprendre la programmation.": 
-            "I have always loved video games, especially the competitive aspect. This motivated me to learn programming.",
-        "Après avoir créé un jeu d'échecs, j'ai commencé à y jouer de plus en plus afin de m'améliorer jusqu'à devenir un joueur régulier.": 
-            "After creating a chess game, I started playing it more and more to improve and eventually became a regular player.",
-        "Mon CV" : "My resume",
-        "Vous pouvez télécharger mon CV en cliquant sur le bouton ci-dessous :" : "You can download my resume here !",
-        "Télécharger le CV": "Download the resume",
-        "CV" : "Resume",
-        "Contact": "Contact",
-        "Téléphone : +33 7 49 13 30 25": "Phone : +33 7 49 13 30 25",
-        "Suivez-moi": "Follow Me",
-        "© 2024 Hannoir Romain - PortFolio.": "© 2024 Hannoir Romain - Portfolio.",
-        "Expérience": "Experience",
-        "expérience": "experience",
-        "Dans le cadre de mon BUT, j'ai pu réalisé ma deuxième et troisième année d'alternance chez Primever en tant que développeur web full stack. J’ai participé au développement et à la maintenance de plusieurs applications web, principalement avec React et Symfony, et j’ai également travaillé avec le framework GLPI pour la mise en place d’une solution d’assistance (gestion et remontée des tickets).": "During my second and third year of the BUT program, I completed a work-study placement at Primever as a full stack web developer. I contributed to the development and maintenance of several web applications, mainly using React and Symfony, and also worked with the GLPI framework to implement a support solution, including ticket management and tracking.",
-        "Ces projets sont automatiquement reliés à mon github.": "These projects are automatically linked to my github",
-        "Tous": "All",
-        "Outils": "Tools",
-        "Backend & Bases de données": "Backend & Database",
-        "En cours": "In progress"
-    };
-    
-    const eng_to_french = Object.fromEntries(
-        Object.entries(french_to_eng).map(([key, value]) => [value, key])
-      );
-
-    if(!event.target.src) {
-      return;
-    }
-
-    //language and icon
-    let language = event.target.src.includes('images/france.png') ? {country: "angleterre", language: 'en'} : {country: "france", language: 'fr'}; 
-    activeLanguage = language.language;
-    let translations = language.language == "fr" ? eng_to_french : french_to_eng; 
-    event.target.src = 'images/' + language.country + '.png';
-
-    //CV
-    document.getElementById('cv-download').href = language.language == "fr" ? "CV/Hannoir Romain - CV.pdf" : "CV/Hannoir Romain - Resume.pdf"
-    document.getElementById('cv-download').download = language.language == "fr" ? "Hannoir Romain - CV.pdf" : "Hannoir Romain - Resume.pdf"
-
-    const elements = document.querySelectorAll("*"); // Sélectionne tous les éléments de la page
-    
-    elements.forEach((element) => {
-      // Si l'élément contient du texte
-      if (element.childNodes.length === 1) {
-        const originalText = element.textContent.trim();
-        if (translations[originalText]) {
-          element.textContent = translations[originalText]; // Remplace par la traduction
-        }
-      }
-    });
-
-    //translate the problematic elements
-    let div = document.getElementById('portfolio-title');
-    div.innerHTML = div.innerHTML.replace(div.innerText, translations[div.innerText]);
-
-    printProjects(activeFilter, false);
-    if (selectedProjectIndex >= 0) {
-        const tempIndex = selectedProjectIndex
-        selectedProjectIndex = -1
-        printSelectedProject(tempIndex)
-    }
-  }
-  
-// Appliquer la traduction lorsque la page est chargée
-document.addEventListener("DOMContentLoaded", translatePage);
-
-/* scroll and github projects */
-const images = {
-    "Java": "java.png",
-    "Python": "python.png",
-    "HTML": "html.png",
-    "JavaScript": "js.png"
+const fallbackImages = {
+    Java: "java.png",
+    Python: "python.png",
+    HTML: "html.png",
+    JavaScript: "js.png"
 };
 
-//gérer le lien actif lorsque l'on scroll
-window.addEventListener('scroll', () => {
-
-    let currentSection = '';
-    const sections = document.querySelectorAll('.section');
-    const navLinks = document.querySelectorAll('.sidebar a');
-
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        if (pageYOffset >= sectionTop - window.screen.height / 2) {
-            currentSection = section.getAttribute('id');
-        }
-    });
-
-    navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href').substring(1) === currentSection) {
-            link.classList.add('active');
-        }
-    });
-
-    addEffect();
+document.addEventListener("DOMContentLoaded", () => {
+    initNavigation();
+    initCursorGlow();
+    initTiltCards();
+    initRevealOnScroll();
+    initThreeBackground();
+    bindProjectFilters();
+    fetchGitHubRepos();
 });
 
-function isVisible(element) {
-    const rect = element.getBoundingClientRect();
-    return rect.top < window.innerHeight && rect.bottom > 0;
-}
+function initNavigation() {
+    const navbar = document.getElementById("navbar");
 
-//Fonction pour éviter que la div redisparaisse trop vite
-function isHidden(element) {
-    const rect = element.getBoundingClientRect();
-    const margin = 150;
-    return rect.bottom < -margin || rect.top > window.innerHeight + margin;
-}
-
-//remplir les projet avec github
-async function fetchGitHubRepos() {
-    const url = 'https://api.github.com/users/Romain-02/repos';
-
-    fetch(url, {
-    })
-        .then(response => response.json())
-        .then(repos => {
-            repositories = repos;
-            repositories = repositories.filter((repository) => repository.topics.includes('portfolio'))
-            // Utilise Promise.all pour attendre toutes les promesses
-            Promise.all(repositories.map(async (repository) => {
-                const translations = await getTranslations(repository);
-
-                return {
-                    ...repository,
-                    title: {
-                        'en': translations.title.en,
-                        'fr': translations.title.fr
-                    },
-                    description: {
-                        'en': translations.description.en,
-                        'fr': translations.description.fr
-                    }
-                };
-            }))
-            .then(updatedRepos => {
-                repositories = updatedRepos;
-                printProjects(activeFilter, false);
-            })
-            .catch(error => {
-                console.error("Erreur lors de la récupération des traductions :", error);
-            });
-        })
-}
-
-function addEffect(){
-    const elements = document.querySelectorAll('.effect');
-
-    elements.forEach(element => {
-        if (isVisible(element))
-            element.classList.add('visible');
-        else if(isHidden(element))
-            element.classList.remove('visible');
+    window.addEventListener("scroll", () => {
+        navbar.classList.toggle("is-visible", window.scrollY > 100);
     });
-}
 
-async function setImgProject(i, selected = false){
-    if(i in fetchedImages){
-        const imgElement = document.querySelector(selected ? '.img-project' : `#project${i} .img-project`);
-        imgElement.src = fetchedImages[i];
-        return;
-    }
-
-    let url = 'https://raw.githubusercontent.com/Romain-02/' + repositories[i]['name'] + '/main/illustration.png';
-
-    fetch(url)
-    .then(response => {
-        if (!response.ok) {
-            return Promise.resolve("images/" + (repositories[i]['language'] in images ? images[repositories[i]['language']] : 'codeDefault.png'));
-        }
-        return response.blob().then(blob => {
-            return URL.createObjectURL(blob);
-        });
-    })
-    .catch(() => {
-        return "images/" + (repositories[i]['language'] in images ? images[repositories[i]['language']] : 'codeDefault.png');
-    })    
-    .then(imageUrl => {
-        fetchedImages[i] = imageUrl;
-        const imgElement = document.querySelector(selected ? '.img-project' : `#project${i} .img-project`);
-        imgElement.src = imageUrl;
-    
-    });
-}
-
-function printProjects(filter, selectedProject = true){
-    if(selectedProject){
-         removeSelectedProject();
-    }
-    activeFilter = filter;
-    const repoList = document.getElementById("list-repositories");
-    repoList.innerHTML = ``;
-    repositories.forEach((repo, i) => {
-        if(filter === '' || repositories[i]['language'] === filter || (filter === 'Web' && ['HTML', 'PHP', 'JavaScript'].includes(repositories[i]['language']))){
-            repoList.innerHTML += `
-            <div id="project`+ i +`" class="project effect">
-                <img class="img-project" id="project${i}">
-                <h3><b>${repo['title'][activeLanguage]}</b></h3>
-                <p id="description`+ i +`"></p>
-                <a href="#selectedProject" class="buttonDesc" id="button`+ i +`" onClick='printSelectedProject(` + i + `)'>Afficher plus</a>
-            </div>
-            `;  
-        }
-        setImgProject(i);
-        i++;
-    });
-    addEffect();
-}
-
-function removeSelectedProject(){
-    let project = document.getElementById('selectedProject');
-    project.innerHTML = ``;
-    project.style.marginTop = "0%";
-    project.style.border = "0px solid #b4742f";
-    project.style.boxShadow = "4px 4px 4px 4px rgba(0, 0, 0, 0)";
-    project.classList.remove("visible");
-
-    const elements = document.querySelectorAll('.effect');
-    elements.forEach(element => {
-        element.classList.add('visible');
-    });
-}
-
-async function getTranslations(repository){
-    const translatedDescriptions = "https://raw.githubusercontent.com/Romain-02/" + repository['name'] + "/main/portfolio.json";
-    let translations = {
-            title: {
-                fr: repository['name'],
-                en: repository['name']
-            }, 
-            description: {
-                fr: repository['description'] ?? "", 
-                en: repository['description'] ?? ""
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", (event) => {
+            const target = document.querySelector(anchor.getAttribute("href"));
+            if (!target) {
+                return;
             }
-        }
-    
-    await fetch(translatedDescriptions)
-        .then(res => {
-        if (!res.ok) throw new Error("File not found");
-        return res.json();
-    })
-    .then(data => {
-        translations = data
-    })
-    .catch(() => { 
-        console.error(repository['name'] + " does not have translations")
-    });
 
-    return translations
+            event.preventDefault();
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+    });
 }
 
-
-function printSelectedProject(i){
-    if(selectedProjectIndex != -1) printProjects(activeFilter);
-    let project = document.getElementById('selectedProject')
-    if(selectedProjectIndex == i){
-        selectedProjectIndex = -1;
-        removeSelectedProject();
+function initCursorGlow() {
+    const cursorGlow = document.getElementById("cursorGlow");
+    if (!cursorGlow) {
         return;
-    } else{
-        project.style.marginTop = "2%";
-        project.style.border = "5px solid #b4742f";
-        project.style.boxShadow = "4px 4px 4px 4px rgba(0, 0, 0, 0.2)";
-
-        project.classList.remove("visible");
-        setTimeout(() => {
-            project.classList.add("visible");
-        }, 100); // Delay to ensure the animation runs
-
-        event.preventDefault();
-        window.scrollTo({top: project.getBoundingClientRect().top + window.pageYOffset - 100,behavior: 'smooth'});
     }
 
-    selectedProjectIndex = i;
-    document.getElementById('list-repositories').removeChild(document.getElementById('project' + i));
-    document.getElementById('selectedProject').innerHTML = `
-                    <div class="img-project-container"><img class="img-project"></div>
-                    <div class="d-flex">
-                        <div id="infoProject">
-                            <h3><b>${repositories[i]['title'][activeLanguage]}</b></h3>
-                            <p id="description`+ i +`">${repositories[i]['description'][activeLanguage]}</p>
-                        </div>
-                        <div class="projectLink">
-                            <a class="buttonDesc mr-3" id="button`+ i +`" onClick='printSelectedProject(` + i + `)'>Afficher moins</a>
-                            <a class="url" target='_blank' href="${repositories[i]['svn_url']}"><img src="images/iconeGithub.png"></img></a>
-                        <div>
-                    </div>
-                `;
-                setImgProject(i, true);
+    document.addEventListener("mousemove", (event) => {
+        cursorGlow.style.left = `${event.clientX}px`;
+        cursorGlow.style.top = `${event.clientY}px`;
+    });
 }
 
-// Exécute la fonction lors du chargement de la page
-window.onload = fetchGitHubRepos;
-addEffect();
+function initTiltCards() {
+    document.querySelectorAll("[data-tilt]").forEach((card) => {
+        card.addEventListener("mousemove", (event) => {
+            const rect = card.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+            const rotateX = (y - rect.height / 2) / 34;
+            const rotateY = (rect.width / 2 - x) / 34;
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+
+        card.addEventListener("mouseleave", () => {
+            card.style.transform = "perspective(1000px) rotateX(0) rotateY(0)";
+        });
+    });
+}
+
+function initRevealOnScroll() {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("is-visible");
+            }
+        });
+    }, {
+        threshold: 0.12,
+        rootMargin: "0px 0px -50px 0px"
+    });
+
+    document.querySelectorAll(".reveal").forEach((element) => observer.observe(element));
+}
+
+function initThreeBackground() {
+    if (!window.THREE) {
+        return;
+    }
+
+    const container = document.getElementById("canvas-container");
+    if (!container) {
+        return;
+    }
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    container.appendChild(renderer.domElement);
+
+    const particlesGeometry = new THREE.BufferGeometry();
+    const particlesCount = 90;
+    const positions = new Float32Array(particlesCount * 3);
+
+    for (let i = 0; i < positions.length; i++) {
+        positions[i] = (Math.random() - 0.5) * 48;
+    }
+
+    particlesGeometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+
+    const particlesMaterial = new THREE.PointsMaterial({
+        size: 0.1,
+        color: 0x00d8e8,
+        transparent: true,
+        opacity: 0.52,
+        blending: THREE.AdditiveBlending
+    });
+
+    const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+    scene.add(particlesMesh);
+    camera.position.z = 30;
+
+    let mouseX = 0;
+    let mouseY = 0;
+
+    document.addEventListener("mousemove", (event) => {
+        mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+        mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+    });
+
+    function animate() {
+        requestAnimationFrame(animate);
+        particlesMesh.rotation.x += 0.0009 + mouseY * 0.00025;
+        particlesMesh.rotation.y += 0.001 + mouseX * 0.00025;
+        renderer.render(scene, camera);
+    }
+
+    animate();
+
+    window.addEventListener("resize", () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+}
+
+function bindProjectFilters() {
+    document.querySelectorAll(".filter-button").forEach((button) => {
+        button.addEventListener("click", () => {
+            document.querySelectorAll(".filter-button").forEach((item) => item.classList.remove("is-active"));
+            button.classList.add("is-active");
+            printProjects(button.dataset.filter);
+        });
+    });
+}
+
+async function fetchGitHubRepos() {
+    const status = document.getElementById("project-status");
+    const url = "https://api.github.com/users/Romain-02/repos";
+
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error("GitHub request failed");
+        }
+
+        const repos = await response.json();
+        const portfolioRepos = repos.filter((repository) => (repository.topics || []).includes("portfolio"));
+
+        repositories = await Promise.all(portfolioRepos.map(async (repository) => {
+            const translations = await getTranslations(repository);
+            return {
+                ...repository,
+                title: {
+                    en: translations.title.en,
+                    fr: translations.title.fr
+                },
+                description: {
+                    en: translations.description.en,
+                    fr: translations.description.fr
+                }
+            };
+        }));
+
+        status.textContent = repositories.length ? "" : "Aucun projet portfolio trouve sur GitHub.";
+        printProjects(activeFilter);
+    } catch (error) {
+        status.textContent = "Impossible de charger les projets GitHub pour le moment.";
+        console.error(error);
+    }
+}
+
+async function getTranslations(repository) {
+    const translatedDescriptions = `https://raw.githubusercontent.com/Romain-02/${repository.name}/main/portfolio.json`;
+    let translations = {
+        title: {
+            fr: repository.name,
+            en: repository.name
+        },
+        description: {
+            fr: repository.description ?? "",
+            en: repository.description ?? ""
+        }
+    };
+
+    try {
+        const response = await fetch(translatedDescriptions);
+        if (!response.ok) {
+            throw new Error("File not found");
+        }
+        translations = await response.json();
+    } catch {
+        console.error(`${repository.name} does not have translations`);
+    }
+
+    return translations;
+}
+
+function printProjects(filter) {
+    activeFilter = filter;
+    selectedProjectIndex = -1;
+
+    const selectedProject = document.getElementById("selected-project");
+    selectedProject.hidden = true;
+    selectedProject.innerHTML = "";
+
+    const repoList = document.getElementById("project-list");
+    repoList.innerHTML = "";
+
+    const visibleRepos = repositories
+        .map((repo, index) => ({ repo, index }))
+        .filter(({ repo }) => {
+            return filter === ""
+                || repo.language === filter
+                || (filter === "Web" && ["HTML", "PHP", "JavaScript"].includes(repo.language));
+        });
+
+    visibleRepos.forEach(({ repo, index }) => {
+        const card = document.createElement("article");
+        card.className = "project-card reveal is-visible";
+        card.innerHTML = `
+            <div class="project-visual">
+                <img class="project-image" alt="Illustration du projet ${repo.title.fr}">
+            </div>
+            <div class="project-body">
+                <h3>${repo.title.fr}</h3>
+                <p>${repo.description.fr}</p>
+                <div class="project-meta">
+                    <span class="project-language">${repo.language ?? "Code"}</span>
+                    <button class="project-button" type="button">Afficher plus</button>
+                </div>
+            </div>
+        `;
+
+        card.querySelector(".project-button").addEventListener("click", () => printSelectedProject(index));
+        repoList.appendChild(card);
+        setImgProject(index, card.querySelector(".project-image"));
+    });
+}
+
+async function setImgProject(index, imageElement) {
+    if (fetchedImages[index]) {
+        imageElement.src = fetchedImages[index];
+        return;
+    }
+
+    const repository = repositories[index];
+    const fallbackImage = `images/${fallbackImages[repository.language] ?? "codeDefault.png"}`;
+    const url = `https://raw.githubusercontent.com/Romain-02/${repository.name}/main/illustration.png`;
+
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error("Project image not found");
+        }
+
+        const blob = await response.blob();
+        fetchedImages[index] = URL.createObjectURL(blob);
+    } catch {
+        fetchedImages[index] = fallbackImage;
+    }
+
+    imageElement.src = fetchedImages[index];
+}
+
+function printSelectedProject(index) {
+    const selectedProject = document.getElementById("selected-project");
+
+    if (selectedProjectIndex === index) {
+        selectedProjectIndex = -1;
+        selectedProject.hidden = true;
+        selectedProject.innerHTML = "";
+        return;
+    }
+
+    const repository = repositories[index];
+    selectedProjectIndex = index;
+    selectedProject.hidden = false;
+    selectedProject.innerHTML = `
+        <div class="project-visual">
+            <img class="project-image" alt="Illustration du projet ${repository.title.fr}">
+        </div>
+        <div>
+            <h3>${repository.title.fr}</h3>
+            <p>${repository.description.fr}</p>
+            <div class="selected-actions">
+                <button class="project-button" type="button">Afficher moins</button>
+                <a class="button button-primary" target="_blank" rel="noreferrer" href="${repository.svn_url}">Voir sur GitHub</a>
+            </div>
+        </div>
+    `;
+
+    selectedProject.querySelector(".project-button").addEventListener("click", () => printSelectedProject(index));
+    setImgProject(index, selectedProject.querySelector(".project-image"));
+    selectedProject.scrollIntoView({ behavior: "smooth", block: "center" });
+}
