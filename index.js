@@ -459,15 +459,17 @@ function printProjects(filter, options = {}) {
                 <h3>${repo.title[activeLanguage]}</h3>
                 <p>${repo.description[activeLanguage]}</p>
                 <div class="project-meta">
-                    <span class="project-language" tabindex="0" data-tooltip="${getProjectLanguageLabel(repo)}" title="${getProjectLanguageLabel(repo)}">${getProjectLanguageLabel(repo)}</span>
+                <span class="project-language" tabindex="0" data-tooltip="${getProjectLanguageLabel(repo)}" title="${getProjectLanguageLabel(repo)}">
+                <span class="language-text"> ${getProjectLanguageLabel(repo)}</span>
+                </span>
                     <button class="project-button" type="button">${translations[activeLanguage]["projects.more"]}</button>
                 </div>
             </div>
         `;
 
-    card
-      .querySelector(".project-button")
-      .addEventListener("click", () => openProjectModal(index));
+      card
+        .querySelector(".project-button")
+        .addEventListener("click", () => openProjectModal(index));
       repoList.appendChild(card);
       const image = card.querySelector(".project-image");
       image.alt = `${translations[activeLanguage]["projects.title"]} ${repo.title[activeLanguage]}`;
@@ -478,7 +480,9 @@ function printProjects(filter, options = {}) {
 }
 
 function getProjectLanguageLabel(repository) {
-  const languages = repository.languages.length ? repository.languages : ["Code"];
+  const languages = repository.languages.length
+    ? repository.languages
+    : ["Code"];
   return languages.join(" / ");
 }
 

@@ -434,9 +434,9 @@ a {
 .inline-tags span,
 .skill-tags span,
 .project-language {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  justify-content: center;
+  max-width: 150px;
   min-height: 30px;
   padding: 5px 10px;
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -444,6 +444,13 @@ a {
   background: rgba(255, 255, 255, 0.055);
   color: #e7ebf6;
   font-size: 0.85rem;
+  justify-content: center;
+}
+
+.language-text {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .profile-card {
